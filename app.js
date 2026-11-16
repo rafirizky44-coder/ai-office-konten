@@ -68,7 +68,7 @@ function render(){
  document.getElementById("queueList").innerHTML=q.length?q.map(x=>`<div class="item"><div class="avatar">✦</div><div class="itemmain"><strong>${esc(x.title)}</strong><small>${esc(x.platform)} · ${statusLabel[x.status]}</small></div><button class="btn small" onclick="openItem('${x.id}')">Buka</button></div>`).join(""):`<div class="empty">Tidak ada pekerjaan dalam antrean.</div>`;
  let search=(document.getElementById("searchContent")?.value||"").toLowerCase(), filter=document.getElementById("filterStatus")?.value||"";
  let rows=items.filter(x=>(!search||x.title.toLowerCase().includes(search))&&(!filter||x.status===filter));
- document.getElementById("contentRows").innerHTML=rows.length?rows.map(x=>`<tr><td><strong>${esc(x.title)}</strong><br><span class="muted">${esc(x.caption||"")}</span></td><td>${esc(x.platform)}</td><td>${esc(x.format)}</td><td><span class="status ${statusClass[x.status]||""}">${statusLabel[x.status]}</span></td><td>${dateFmt(x.date)}</td><td><button class="btn small" onclick="openItem('${x.id}')">Kelola</button></td></tr>`).join(""):`<tr><td colspan="6" class="empty">Belum ada konten yang cocok.</td></tr>`;
+ document.getElementById("contentRows").innerHTML=rows.length?rows.map(x=>`<tr><td><strong>${esc(x.title)}</strong><br><span class="muted">${esc(x.caption||"")}</span></td><td>${esc(x.platform)}</td><td>${esc(x.format)}</td><td><span class="status ${statusClass[x.status]||""}">${statusLabel[x.status]}</span></td><td>${dateFmt(x.date)}</td><td><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn small" onclick="openItem('${x.id}')">Kelola</button><button class="btn small danger" onclick="deleteContent('${x.id}')">Hapus</button></div></td></tr>`).join(""):`<tr><td colspan="6" class="empty">Belum ada konten yang cocok.</td></tr>`;
  let pending=items.filter(x=>x.status==="review");
  document.getElementById("approvalList").innerHTML=pending.length?pending.map(x=>`<div class="item"><div class="avatar">✓</div><div class="itemmain"><strong>${esc(x.title)}</strong><small>${esc(x.platform)} · ${esc(x.format)}</small><small>${esc(x.caption||"Belum ada catatan")}</small></div><button class="btn small primary" onclick="approve('${x.id}')">Setujui</button><button class="btn small danger" onclick="revise('${x.id}')">Revisi</button></div>`).join(""):`<div class="empty card">Tidak ada konten yang menunggu persetujuan.</div>`;
  let days=["Sen","Sel","Rab","Kam","Jum","Sab","Min"];
@@ -86,6 +86,31 @@ document.getElementById("newContent").onclick=()=>openModal();document.getElemen
 document.getElementById("cancelModal").onclick=closeModal;modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
 document.getElementById("contentForm").addEventListener("submit",async e=>{e.preventDefault();if(isSaving)return;if(!currentUser||!currentWorkspace){alert("Silakan login terlebih dahulu.");return;}isSaving=true;const submit=e.target.querySelector('button[type="submit"]');submit.disabled=true;try{const id=e.target.dataset.id;const status=document.getElementById("fStatus").value;const payload={workspace_id:currentWorkspace.id,title:document.getElementById("fTitle").value.trim(),platform:platformToArray(document.getElementById("fPlatform").value),format:document.getElementById("fFormat").value,caption:document.getElementById("fCaption").value,status,approval_required:true,scheduled_at:document.getElementById("fDate").value?new Date(document.getElementById("fDate").value).toISOString():null};let saved;if(id){const {data,error}=await supabase.from("content_items").update(payload).eq("id",id).eq("workspace_id",currentWorkspace.id).select().single();if(error)throw error;saved=data;}else{const {data,error}=await supabase.from("content_items").insert(payload).select().single();if(error)throw error;saved=data;}await uploadSelectedAsset(saved.id);closeModal();document.getElementById("fAsset").value="";await loadContents();}catch(error){showError(error);}finally{isSaving=false;submit.disabled=false;}});
 window.openItem=id=>{let x=items.find(y=>y.id===id);if(x)openModal(x)};
+window.deleteContent=async id=>{
+ if(!currentUser||!currentWorkspace)return;
+ const item=items.find(x=>x.id===id);
+ if(!item)return;
+ const warning=item.status==="published"?"Konten ini sudah berstatus TERPUBLIKASI. Menghapusnya dari AI Office tidak menghapus postingan yang sudah tayang di Instagram/TikTok. ":"";
+ const confirmed=window.confirm(warning+`Hapus konten "${item.title}"? File aset terkait juga akan dihapus dari Storage. Riwayat persetujuan yang terhubung dapat ikut terhapus karena relasi database saat ini menggunakan ON DELETE CASCADE. Tindakan ini tidak dapat dibatalkan.`);
+ if(!confirmed)return;
+ try{
+   // Ambil path aset sebelum baris content_items dihapus (metadata aset memakai ON DELETE CASCADE).
+   const {data:assets,error:assetReadError}=await supabase.from("content_assets").select("storage_path").eq("content_id",id).eq("workspace_id",currentWorkspace.id);
+   if(assetReadError)throw assetReadError;
+   const {data:deletedRows,error:deleteError}=await supabase.from("content_items").delete().eq("id",id).eq("workspace_id",currentWorkspace.id).select("id");
+   if(deleteError)throw deleteError;
+   if(!deletedRows||deletedRows.length===0)throw new Error("Konten tidak terhapus. Periksa kebijakan DELETE RLS pada tabel content_items.");
+   // Hapus file fisik setelah baris konten berhasil dihapus.
+   const paths=(assets||[]).map(a=>a.storage_path).filter(Boolean);
+   let storageWarning="";
+   if(paths.length){
+     const {error:storageError}=await supabase.storage.from("content-assets").remove(paths);
+     if(storageError)storageWarning=" Konten sudah terhapus dari database, tetapi sebagian file Storage gagal dihapus: "+storageError.message;
+   }
+   await loadContents();
+   alert("Konten berhasil dihapus."+storageWarning);
+ }catch(error){showError(error);}
+};
 window.approve=async id=>{if(!currentUser||!currentWorkspace)return;try{const {data,error}=await supabase.from("content_items").update({status:"approved",approved_by:currentUser.id,approved_at:new Date().toISOString()}).eq("id",id).eq("workspace_id",currentWorkspace.id).select().single();if(error)throw error;const {error:auditError}=await supabase.from("approval_events").insert({workspace_id:currentWorkspace.id,content_id:id,actor_id:currentUser.id,decision:"approved",notes:"Disetujui oleh pemilik melalui dashboard."});if(auditError)throw auditError;await loadContents();alert("Konten disetujui dan riwayat persetujuan tersimpan. Konten belum dipublikasikan.");}catch(error){showError(error)}};
 window.revise=async id=>{if(!currentUser||!currentWorkspace)return;try{const {error}=await supabase.from("content_items").update({status:"revision",approved_by:null,approved_at:null}).eq("id",id).eq("workspace_id",currentWorkspace.id);if(error)throw error;const {error:auditError}=await supabase.from("approval_events").insert({workspace_id:currentWorkspace.id,content_id:id,actor_id:currentUser.id,decision:"revision",notes:"Dikembalikan untuk revisi oleh pemilik."});if(auditError)throw auditError;await loadContents();}catch(error){showError(error)}};
 document.getElementById("searchContent").addEventListener("input",render);document.getElementById("filterStatus").addEventListener("change",render);
