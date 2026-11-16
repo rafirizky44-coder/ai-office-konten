@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171a18">
+<title>AI Office — Konten Cuan Digital</title>
+<style>
+:root{--bg:#101311;--panel:#191e1b;--panel2:#202722;--line:#303a33;--text:#f2f4ef;--muted:#a4afa6;--green:#a8c7a5;--green2:#6f9976;--amber:#e6c68a;--red:#df9690;--blue:#9db8d6;--radius:18px;--shadow:0 12px 34px rgba(0,0,0,.18)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#233329 0,transparent 30%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{padding:24px 16px;border-right:1px solid var(--line);background:rgba(16,19,17,.82);position:sticky;top:0;height:100vh}.brand{display:flex;gap:12px;align-items:center;padding:4px 8px 26px}.brandmark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#c8d7bd,#6f9976);display:grid;place-items:center;color:#152018;font-weight:900;font-size:18px}.brand strong{display:block;font-size:14px;letter-spacing:.04em}.brand small{color:var(--muted)}.navlabel{color:#758279;font-size:10px;font-weight:800;letter-spacing:.16em;padding:16px 10px 8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#bdc7bf;text-align:left;padding:11px 12px;border-radius:11px;display:flex;gap:12px;align-items:center}.nav button:hover,.nav button.active{background:#26332a;color:#e9f3e8}.nav .ico{width:20px;text-align:center;color:var(--green)}.sidefoot{position:absolute;bottom:18px;left:18px;right:18px;padding:13px;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:11px}.main{min-width:0;padding:26px clamp(16px,3vw,42px) 50px;max-width:1600px;width:100%;margin:auto}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px}.eyebrow{color:var(--green);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.topbar h1{font-size:clamp(24px,3vw,34px);line-height:1.15;margin:5px 0}.sub{color:var(--muted)}.top-actions{display:flex;gap:8px;align-items:center}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-size:11px}.btn{border:1px solid var(--line);border-radius:11px;padding:10px 14px;background:#26332a;color:var(--text);font-weight:700}.btn.primary{background:var(--green);color:#172019;border-color:var(--green)}.btn.ghost{background:transparent}.btn.danger{color:var(--red)}.btn.small{padding:7px 10px;font-size:12px}.grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin:20px 0}.card{background:linear-gradient(145deg,rgba(31,39,34,.96),rgba(24,29,26,.96));border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);min-width:0}.statlabel{color:var(--muted);font-size:12px}.statnum{font-size:30px;font-weight:800;margin:7px 0 2px;letter-spacing:-.04em}.statnote{font-size:11px;color:var(--green)}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:28px 0 12px}.sectionhead h2{font-size:17px;margin:0}.sectionhead p{margin:3px 0 0;color:var(--muted);font-size:12px}.cols{grid-template-columns:1.25fr .75fr}.list{display:grid;gap:9px}.item{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.015)}.avatar{width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:#2b3b30;color:var(--green);display:grid;place-items:center;font-weight:800}.itemmain{min-width:0;flex:1}.itemmain strong{display:block;font-size:13px}.itemmain small{color:var(--muted)}.status{font-size:10px;font-weight:800;border-radius:999px;padding:5px 8px;white-space:nowrap;background:#2a3530;color:var(--green)}.status.warn{background:#3b3324;color:var(--amber)}.status.red{background:#3d2928;color:var(--red)}.status.blue{background:#283746;color:var(--blue)}.status.gray{background:#303633;color:#c1c9c2}.progress{height:7px;border-radius:9px;background:#303832;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:linear-gradient(90deg,#6f9976,#b8d0a8);border-radius:9px}.agentgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.agent{padding:15px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.018)}.agenttop{display:flex;justify-content:space-between;align-items:center}.agenticon{font-size:22px}.agent h3{font-size:13px;margin:10px 0 4px}.agent p{font-size:11px;color:var(--muted);margin:0;min-height:34px}.agent small{display:block;margin-top:10px;color:var(--green)}.view{display:none}.view.active{display:block}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}.field{background:#111613;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;min-width:0}.field::placeholder{color:#748078}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px}.table{width:100%;border-collapse:collapse;min-width:680px}.table th,.table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font-size:12px}.table th{color:var(--muted);font-weight:700;background:#1c231f}.table tr:last-child td{border-bottom:0}.empty{padding:28px;text-align:center;color:var(--muted)}.calendar{display:grid;grid-template-columns:repeat(7,minmax(90px,1fr));gap:7px;overflow:auto}.day{min-height:118px;border:1px solid var(--line);border-radius:12px;padding:9px;background:#171d19}.dayhead{color:var(--muted);font-size:10px;margin-bottom:8px}.event{padding:7px;border-radius:8px;background:#2b3b30;color:#dcebdc;font-size:10px;margin:5px 0}.event.pending{background:#403722;color:#f0d9a8}.event.scheduled{background:#263746;color:#c4dcf5}.banner{border:1px solid #455c49;background:linear-gradient(100deg,#26372b,#202c25);border-radius:16px;padding:17px;display:flex;justify-content:space-between;align-items:center;gap:15px}.banner h3{margin:0 0 4px}.banner p{margin:0;color:#b8c8ba;font-size:12px}.modalback{display:none;position:fixed;inset:0;background:#0009;z-index:10;align-items:center;justify-content:center;padding:16px}.modalback.show{display:flex}.modal{width:min(600px,100%);max-height:90vh;overflow:auto;background:#1a211d;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 20px 70px #0008}.modal h2{margin:0 0 16px}.formgrid{display:grid;gap:12px}.formgrid label{display:grid;gap:6px;color:var(--muted);font-size:12px}.formgrid textarea{min-height:85px;resize:vertical}.modalactions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.notice{padding:12px 14px;border-radius:12px;background:#2c352e;color:#cbd9cc;font-size:12px;border:1px solid #405044}.muted{color:var(--muted)}.two{grid-template-columns:1fr 1fr}.footer{margin-top:28px;color:#738077;font-size:11px;text-align:center}.mobilehead{display:none}
+@media(max-width:1000px){.agentgrid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.shell{display:block}.sidebar{position:fixed;z-index:5;top:auto;bottom:0;left:0;right:0;height:auto;padding:7px 8px calc(7px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--line);background:#111713}.brand,.navlabel,.sidefoot{display:none}.nav{display:flex;justify-content:space-around;gap:2px}.nav button{padding:8px 6px;display:grid;justify-items:center;gap:2px;font-size:9px;flex:1}.nav .ico{font-size:16px}.main{padding:20px 14px 100px}.topbar{align-items:flex-start}.top-actions .pill{display:none}.cols,.two{grid-template-columns:1fr}.agentgrid{grid-template-columns:repeat(2,1fr)}.banner{align-items:flex-start;flex-direction:column}.stats{gap:9px}.card{padding:14px}.statnum{font-size:25px}.calendar{grid-template-columns:repeat(7,110px)}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">CC</div><div><strong>KONTEN CUAN DIGITAL</strong><small>AI Office Workspace</small></div></div>
+  <div class="navlabel">WORKSPACE</div>
+  <nav class="nav" id="nav">
+    <button class="active" data-view="overview"><span class="ico">⌂</span>Dashboard</button>
+    <button data-view="agents"><span class="ico">✧</span>Karyawan AI</button>
+    <button data-view="content"><span class="ico">▤</span>Konten</button>
+    <button data-view="calendar"><span class="ico">▦</span>Kalender</button>
+    <button data-view="approval"><span class="ico">✓</span>Persetujuan</button>
+    <button data-view="analytics"><span class="ico">↗</span>Analitik</button>
+    <button data-view="settings"><span class="ico">⚙</span>Pengaturan</button>
+  </nav>
+  <div class="navlabel">BUSINESS</div>
+  <nav class="nav">
+    <button data-view="workflow"><span class="ico">⟳</span>Workflow</button>
+  </nav>
+  <div class="sidefoot">Mode demo lokal · Data tersimpan di browser ini.<br>Belum terhubung ke Supabase/API sosial.</div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <div><div class="eyebrow">KONTEN CUAN DIGITAL / WORKSPACE</div><h1 id="pageTitle">Dashboard operasional</h1><div class="sub" id="todayLabel">Pusat kendali bisnis digital Anda.</div></div>
+    <div class="top-actions"><span class="pill">● Human approval required</span><button class="btn primary" id="newContent">＋ Buat konten</button></div>
+  </header>
+
+  <section class="view active" id="view-overview">
+    <div class="banner"><div><h3>Selamat datang di AI Office.</h3><p>Kelola ide, produksi, persetujuan, dan jadwal publikasi dari satu tempat.</p></div><button class="btn primary" data-goto="approval">Periksa antrean persetujuan →</button></div>
+    <div class="grid stats">
+      <div class="card"><div class="statlabel">Total konten</div><div class="statnum" id="statTotal">0</div><div class="statnote">Seluruh draft dan publikasi</div></div>
+      <div class="card"><div class="statlabel">Menunggu persetujuan</div><div class="statnum" id="statPending">0</div><div class="statnote">Tidak akan tayang sebelum disetujui</div></div>
+      <div class="card"><div class="statlabel">Terjadwal</div><div class="statnum" id="statScheduled">0</div><div class="statnote">Siap masuk antrean publikasi</div></div>
+      <div class="card"><div class="statlabel">Sudah dipublikasikan</div><div class="statnum" id="statPublished">0</div><div class="statnote">Catat tautan dan hasil aktual</div></div>
+    </div>
+    <div class="grid cols">
+      <div class="card"><div class="sectionhead" style="margin-top:0"><div><h2>Antrean pekerjaan</h2><p>Konten yang membutuhkan tindakan berikutnya.</p></div><button class="btn small ghost" data-goto="content">Lihat semua</button></div><div class="list" id="queueList"></div></div>
+      <div class="card"><div class="sectionhead" style="margin-top:0"><div><h2>Alur kerja</h2><p>Status operasional konten.</p></div></div>
+        <div class="list">
+          <div class="item"><div class="avatar">01</div><div class="itemmain"><strong>Ide & riset</strong><small>Research Agent</small></div><span class="status blue">Ide</span></div>
+          <div class="item"><div class="avatar">02</div><div class="itemmain"><strong>Produksi</strong><small>Copywriter & Creative</small></div><span class="status warn">Draft</span></div>
+          <div class="item"><div class="avatar">03</div><div class="itemmain"><strong>Persetujuan owner</strong><small>Human approval gate</small></div><span class="status warn">Wajib</span></div>
+          <div class="item"><div class="avatar">04</div><div class="itemmain"><strong>Penjadwalan</strong><small>Publisher Agent</small></div><span class="status blue">Berikutnya</span></div>
+          <div class="item"><div class="avatar">05</div><div class="itemmain"><strong>Analisis</strong><small>Social Analyst</small></div><span class="status gray">Setelah tayang</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sectionhead"><div><h2>Tim AI</h2><p>Delapan peran operasional dalam satu kantor.</p></div><button class="btn small ghost" data-goto="agents">Lihat struktur →</button></div>
+    <div class="grid agentgrid" id="overviewAgents"></div>
+  </section>
+
+  <section class="view" id="view-agents">
+    <div class="sectionhead"><div><h2>Struktur karyawan AI</h2><p>Peran, tanggung jawab, dan keluaran kerja tiap agen.</p></div></div>
+    <div class="grid agentgrid" id="allAgents"></div>
+    <div class="notice" style="margin-top:14px">Pada tahap ini, daftar agen adalah struktur organisasi dan spesifikasi kerja. Agen belum menjalankan tugas otomatis sampai API AI dan workflow backend dihubungkan.</div>
+  </section>
+
+  <section class="view" id="view-content">
+    <div class="sectionhead"><div><h2>Content production</h2><p>Kelola seluruh konten lintas platform.</p></div><button class="btn primary" id="newContent2">＋ Tambah konten</button></div>
+    <div class="toolbar"><input class="field" id="searchContent" placeholder="Cari judul konten…"><select class="field" id="filterStatus"><option value="">Semua status</option><option value="idea">Ide</option><option value="draft">Draft</option><option value="review">Menunggu persetujuan</option><option value="approved">Disetujui</option><option value="scheduled">Terjadwal</option><option value="published">Terpublikasi</option><option value="revision">Perlu revisi</option></select></div>
+    <div class="tablewrap"><table class="table"><thead><tr><th>Judul</th><th>Platform</th><th>Format</th><th>Status</th><th>Jadwal</th><th>Aksi</th></tr></thead><tbody id="contentRows"></tbody></table></div>
+  </section>
+
+  <section class="view" id="view-calendar">
+    <div class="sectionhead"><div><h2>Kalender publikasi</h2><p>Contoh kalender awal. AI nantinya mengusulkan waktu berdasarkan data performa akun.</p></div><button class="btn small" id="calendarAdd">＋ Tambah</button></div>
+    <div class="toolbar"><span class="pill">Minggu contoh · 7 hari</span><span class="pill">Waktu WIB</span></div>
+    <div class="calendar" id="calendarGrid"></div>
+  </section>
+
+  <section class="view" id="view-approval">
+    <div class="sectionhead"><div><h2>Persetujuan owner</h2><p>Hanya konten yang disetujui dapat diteruskan ke penjadwalan.</p></div><span class="status warn">Approval wajib</span></div>
+    <div class="list" id="approvalList"></div>
+  </section>
+
+  <section class="view" id="view-analytics">
+    <div class="sectionhead"><div><h2>Social media analytics</h2><p>Masukkan data aktual atau hubungkan API pada tahap integrasi.</p></div></div>
+    <div class="grid stats">
+      <div class="card"><div class="statlabel">Views</div><div class="statnum">—</div><div class="statnote">Menunggu koneksi data</div></div>
+      <div class="card"><div class="statlabel">Engagement rate</div><div class="statnum">—</div><div class="statnote">Menunggu koneksi data</div></div>
+      <div class="card"><div class="statlabel">Profile visits</div><div class="statnum">—</div><div class="statnote">Menunggu koneksi data</div></div>
+      <div class="card"><div class="statlabel">Conversions</div><div class="statnum">—</div><div class="statnote">Menunggu koneksi data</div></div>
+    </div>
+    <div class="card"><h2 style="font-size:15px;margin-top:0">Metrik yang akan dikumpulkan</h2><p class="muted">Reach, views, watch time, completion rate, likes, comments, shares, saves, profile visits, link clicks, DM leads, jumlah transaksi, omzet, biaya, dan laba bersih.</p><div class="notice">Jadwal berbasis analisis baru dapat dihitung setelah tersedia data historis yang memadai. Pada awal operasional, sistem menggunakan jadwal uji dan melakukan evaluasi berkala.</div></div>
+  </section>
+
+  <section class="view" id="view-workflow">
+    <div class="sectionhead"><div><h2>Automation workflow</h2><p>Rancangan alur yang akan diaktifkan melalui Make atau n8n.</p></div></div>
+    <div class="list" id="workflowList"></div>
+    <div class="notice" style="margin-top:14px">Workflow belum berjalan otomatis di versi demo ini. Aktivasi membutuhkan kredensial backend, koneksi AI, Google Drive, dan otorisasi platform sosial.</div>
+  </section>
+
+  <section class="view" id="view-settings">
+    <div class="sectionhead"><div><h2>Pengaturan workspace</h2><p>Konfigurasi bisnis dan publikasi.</p></div></div>
+    <div class="grid two">
+      <div class="card"><h3 style="margin-top:0">Identitas bisnis</h3><div class="formgrid"><label>Nama bisnis<input class="field" value="Konten Cuan Digital" id="businessName"></label><label>Produk utama<input class="field" value="7500+ Video Affiliate" id="productName"></label><label>Slogan<input class="field" value="Mulai Kecil, Bangun Peluang Digital" id="slogan"></label><button class="btn primary" id="saveSettings">Simpan pengaturan lokal</button></div></div>
+      <div class="card"><h3 style="margin-top:0">Aturan publikasi</h3><div class="formgrid"><label>Persetujuan sebelum upload<select class="field" disabled><option>Wajib untuk semua konten</option></select></label><label>Platform<select class="field" disabled><option>Instagram + TikTok</option></select></label><label>Strategi waktu<select class="field" disabled><option>AI menentukan berdasarkan analisis</option></select></label><div class="notice">Tidak ada publikasi otomatis tanpa persetujuan owner.</div></div></div>
+    </div>
+    <div class="card" style="margin-top:14px"><h3 style="margin-top:0">Koneksi sistem</h3><div class="list"><div class="item"><div class="avatar">DB</div><div class="itemmain"><strong>Supabase</strong><small>Belum dikonfigurasi</small></div><span class="status warn">Belum terhubung</span></div><div class="item"><div class="avatar">AI</div><div class="itemmain"><strong>AI API / Orchestrator</strong><small>API key harus disimpan di backend</small></div><span class="status warn">Belum terhubung</span></div><div class="item"><div class="avatar">IG</div><div class="itemmain"><strong>Instagram & TikTok</strong><small>Memerlukan otorisasi akun dan akses API</small></div><span class="status warn">Belum terhubung</span></div></div></div>
+  </section>
+  <div class="footer">AI OFFICE · KONTEN CUAN DIGITAL · Starter dashboard v0.1 · Demo lokal</div>
+</main>
+</div>
+
+<div class="modalback" id="modal">
+  <div class="modal">
+    <h2 id="modalTitle">Tambah konten</h2>
+    <form id="contentForm" class="formgrid">
+      <label>Judul konten<input class="field" id="fTitle" required placeholder="Contoh: 3 kesalahan affiliate pemula"></label>
+      <div class="grid two">
+        <label>Platform<select class="field" id="fPlatform"><option>Instagram + TikTok</option><option>Instagram</option><option>TikTok</option></select></label>
+        <label>Format<select class="field" id="fFormat"><option>Reels / Short video</option><option>Carousel</option><option>Story</option><option>Video demo produk</option></select></label>
+      </div>
+      <label>Caption / catatan<textarea class="field" id="fCaption" placeholder="Tulis ringkasan, hook, caption, atau brief produksi…"></textarea></label>
+      <div class="grid two">
+        <label>Status awal<select class="field" id="fStatus"><option value="idea">Ide</option><option value="draft">Draft</option><option value="review">Menunggu persetujuan</option></select></label>
+        <label>Jadwal usulan<input class="field" id="fDate" type="datetime-local"></label>
+      </div>
+      <div class="modalactions"><button type="button" class="btn ghost" id="cancelModal">Batal</button><button class="btn primary" type="submit">Simpan konten</button></div>
+    </form>
+  </div>
+</div>
+<script>
+const AGENTS=[
+{name:"AI Director",icon:"♛",role:"Koordinasi operasional",desc:"Membagi pekerjaan, menjaga standar, memeriksa output, dan mengelola approval.",out:"Brief kerja & laporan harian"},
+{name:"AI Researcher",icon:"⌕",role:"Riset pasar dan tren",desc:"Meneliti pertanyaan audiens, tren konten, kompetitor, dan peluang topik.",out:"Content research brief"},
+{name:"AI Copywriter",icon:"✎",role:"Naskah dan copywriting",desc:"Menghasilkan ide, hook, skrip, caption, CTA, dan variasi pesan.",out:"Naskah siap produksi"},
+{name:"AI Graphic Designer",icon:"▧",role:"Desain visual",desc:"Menyusun konsep visual, carousel, thumbnail, dan materi promosi.",out:"Brief desain & aset visual"},
+{name:"AI Video Editor",icon:"▣",role:"Produksi video faceless",desc:"Menyusun storyboard, urutan klip, subtitle, audio, dan arahan editing.",out:"Video draft & file final"},
+{name:"AI Social Analyst",icon:"⌁",role:"Analisis media sosial",desc:"Membaca performa konten, menemukan pola, dan mengusulkan waktu tayang.",out:"Laporan performa & rekomendasi"},
+{name:"AI Publisher",icon:"➤",role:"Penjadwalan dan distribusi",desc:"Memvalidasi approval, menyiapkan metadata, dan menerbitkan konten melalui integrasi resmi.",out:"Publish job & URL konten"},
+{name:"AI Sales & CRM",icon:"◇",role:"Prospek dan layanan pelanggan",desc:"Membantu FAQ, pencatatan prospek, tindak lanjut, dan ringkasan penjualan.",out:"Lead record & sales report"}
+];
+const WORKFLOWS=[
+["01","Intake ide","Owner / Researcher","Membuat brief konten dan target audiens."],
+["02","Riset","Research Agent","Menghasilkan tren, insight, dan referensi yang dapat diverifikasi."],
+["03","Produksi naskah","Copywriter Agent","Membuat hook, skrip, caption, CTA, dan hashtag."],
+["04","Produksi kreatif","Designer + Video Editor","Membuat aset visual/video dan menyimpan file ke storage."],
+["05","Quality assurance","Director Agent","Memeriksa akurasi klaim, hak cipta, lisensi, format, dan brand voice."],
+["06","Persetujuan owner","Owner Dashboard","Menunggu persetujuan eksplisit; penolakan mengembalikan konten untuk revisi."],
+["07","Penjadwalan","Publisher Agent","Mencari slot terbaik dari analytics, lalu membuat publish job."],
+["08","Publikasi","Platform API","Menerbitkan hanya konten approved dan mencatat hasil API."],
+["09","Analisis","Social Analyst","Mengambil metrik setelah publikasi dan memperbarui rekomendasi."]
+];
+const seed=[
+{id:1,title:"Selamat datang di Konten Cuan Digital",platform:"Instagram + TikTok",format:"Reels / Short video",status:"draft",date:"",caption:"Konten perkenalan brand dan positioning."},
+{id:2,title:"Mau mulai affiliate tapi bingung bikin konten?",platform:"Instagram + TikTok",format:"Carousel",status:"review",date:"",caption:"Konten problem-awareness untuk pemula."},
+{id:3,title:"Kenalan dengan 7500+ Video Affiliate",platform:"Instagram + TikTok",format:"Video demo produk",status:"idea",date:"",caption:"Tampilkan isi folder Google Drive yang benar-benar tersedia."}
+];
+let items=JSON.parse(localStorage.getItem("ccd_items")||"null")||seed;
+let nextId=Math.max(0,...items.map(x=>x.id))+1;
+const statusLabel={idea:"Ide",draft:"Draft",review:"Menunggu persetujuan",approved:"Disetujui",scheduled:"Terjadwal",published:"Terpublikasi",revision:"Perlu revisi"};
+const statusClass={idea:"blue",draft:"gray",review:"warn",approved:"",scheduled:"blue",published:"",revision:"red"};
+function save(){localStorage.setItem("ccd_items",JSON.stringify(items));render()}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function dateFmt(v){if(!v)return"Belum ditentukan";let d=new Date(v);return isNaN(d)?"Belum ditentukan":d.toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"})}
+function agentCard(a){return `<div class="agent"><div class="agenttop"><span class="agenticon">${a.icon}</span><span class="status">AI ROLE</span></div><h3>${a.name}</h3><p>${a.desc}</p><small>${a.out}</small></div>`}
+function render(){
+ document.getElementById("statTotal").textContent=items.length;
+ document.getElementById("statPending").textContent=items.filter(x=>x.status==="review").length;
+ document.getElementById("statScheduled").textContent=items.filter(x=>x.status==="scheduled").length;
+ document.getElementById("statPublished").textContent=items.filter(x=>x.status==="published").length;
+ document.getElementById("overviewAgents").innerHTML=AGENTS.slice(0,4).map(agentCard).join("");
+ document.getElementById("allAgents").innerHTML=AGENTS.map(agentCard).join("");
+ let q=items.filter(x=>["review","draft","idea","revision"].includes(x.status)).slice(0,5);
+ document.getElementById("queueList").innerHTML=q.length?q.map(x=>`<div class="item"><div class="avatar">✦</div><div class="itemmain"><strong>${esc(x.title)}</strong><small>${esc(x.platform)} · ${statusLabel[x.status]}</small></div><button class="btn small" onclick="openItem(${x.id})">Buka</button></div>`).join(""):`<div class="empty">Tidak ada pekerjaan dalam antrean.</div>`;
+ let search=(document.getElementById("searchContent")?.value||"").toLowerCase(), filter=document.getElementById("filterStatus")?.value||"";
+ let rows=items.filter(x=>(!search||x.title.toLowerCase().includes(search))&&(!filter||x.status===filter));
+ document.getElementById("contentRows").innerHTML=rows.length?rows.map(x=>`<tr><td><strong>${esc(x.title)}</strong><br><span class="muted">${esc(x.caption||"")}</span></td><td>${esc(x.platform)}</td><td>${esc(x.format)}</td><td><span class="status ${statusClass[x.status]||""}">${statusLabel[x.status]}</span></td><td>${dateFmt(x.date)}</td><td><button class="btn small" onclick="openItem(${x.id})">Kelola</button></td></tr>`).join(""):`<tr><td colspan="6" class="empty">Belum ada konten yang cocok.</td></tr>`;
+ let pending=items.filter(x=>x.status==="review");
+ document.getElementById("approvalList").innerHTML=pending.length?pending.map(x=>`<div class="item"><div class="avatar">✓</div><div class="itemmain"><strong>${esc(x.title)}</strong><small>${esc(x.platform)} · ${esc(x.format)}</small><small>${esc(x.caption||"Belum ada catatan")}</small></div><button class="btn small primary" onclick="approve(${x.id})">Setujui</button><button class="btn small danger" onclick="revise(${x.id})">Revisi</button></div>`).join(""):`<div class="empty card">Tidak ada konten yang menunggu persetujuan.</div>`;
+ let days=["Sen","Sel","Rab","Kam","Jum","Sab","Min"];
+ document.getElementById("calendarGrid").innerHTML=days.map((d,i)=>{let date=new Date();date.setDate(date.getDate()-((date.getDay()+6)%7)+i);let ds=date.toISOString().slice(0,10);let ev=items.filter(x=>x.date&&x.date.slice(0,10)===ds);return `<div class="day"><div class="dayhead">${d} · ${date.getDate()}</div>${ev.map(x=>`<div class="event ${x.status}">${esc(x.title)}</div>`).join("")}</div>`}).join("");
+ document.getElementById("workflowList").innerHTML=WORKFLOWS.map(w=>`<div class="item"><div class="avatar">${w[0]}</div><div class="itemmain"><strong>${w[1]}</strong><small>${w[2]} · ${w[3]}</small></div><span class="status gray">Rancangan</span></div>`).join("");
+}
+function showView(v){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));document.getElementById("view-"+v).classList.add("active");document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===v));let titles={overview:"Dashboard operasional",agents:"Karyawan AI",content:"Manajemen konten",calendar:"Kalender publikasi",approval:"Persetujuan owner",analytics:"Analitik media sosial",workflow:"Workflow otomatisasi",settings:"Pengaturan workspace"};document.getElementById("pageTitle").textContent=titles[v]||"AI Office";window.scrollTo(0,0)}
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.goto)));
+document.getElementById("todayLabel").textContent=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"})+" · Workspace pemilik";
+const modal=document.getElementById("modal");
+function openModal(item){document.getElementById("contentForm").dataset.id=item?.id||"";document.getElementById("modalTitle").textContent=item?"Kelola konten":"Tambah konten";document.getElementById("fTitle").value=item?.title||"";document.getElementById("fPlatform").value=item?.platform||"Instagram + TikTok";document.getElementById("fFormat").value=item?.format||"Reels / Short video";document.getElementById("fCaption").value=item?.caption||"";document.getElementById("fStatus").value=item?.status||"idea";document.getElementById("fDate").value=item?.date||"";modal.classList.add("show")}
+function closeModal(){modal.classList.remove("show")}
+document.getElementById("newContent").onclick=()=>openModal();document.getElementById("newContent2").onclick=()=>openModal();document.getElementById("calendarAdd").onclick=()=>openModal();
+document.getElementById("cancelModal").onclick=closeModal;modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
+document.getElementById("contentForm").addEventListener("submit",e=>{e.preventDefault();let id=e.target.dataset.id;let obj={id:id?Number(id):nextId++,title:document.getElementById("fTitle").value.trim(),platform:document.getElementById("fPlatform").value,format:document.getElementById("fFormat").value,caption:document.getElementById("fCaption").value,status:document.getElementById("fStatus").value,date:document.getElementById("fDate").value};if(id){items=items.map(x=>x.id===Number(id)?obj:x)}else items.unshift(obj);closeModal();save()});
+window.openItem=id=>{let x=items.find(y=>y.id===id);if(x)openModal(x)};
+window.approve=id=>{items=items.map(x=>x.id===id?{...x,status:"approved"}:x);save();alert("Konten disetujui. Konten belum dipublikasikan; jadwalkan setelah integrasi publisher aktif.")};
+window.revise=id=>{items=items.map(x=>x.id===id?{...x,status:"revision"}:x);save()};
+document.getElementById("searchContent").addEventListener("input",render);document.getElementById("filterStatus").addEventListener("change",render);
+document.getElementById("saveSettings").onclick=()=>{localStorage.setItem("ccd_settings",JSON.stringify({business:document.getElementById("businessName").value,product:document.getElementById("productName").value,slogan:document.getElementById("slogan").value}));alert("Pengaturan disimpan di browser ini.")};
+let settings=JSON.parse(localStorage.getItem("ccd_settings")||"{}");if(settings.business)document.getElementById("businessName").value=settings.business;if(settings.product)document.getElementById("productName").value=settings.product;if(settings.slogan)document.getElementById("slogan").value=settings.slogan;
+render();
+</script>
+</body>
+</html>
